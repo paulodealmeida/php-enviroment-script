@@ -22,6 +22,12 @@ fancy_echo "Installing Netbeans ..."
   sudo bash /tmp/netbeans-8.0.2-php-linux.sh --silent
   sudo rm -rf /tmp/*
 
+fancy_echo "Installing Workbench ..."
+  sudo apt-get install -y
+
+fancy_echo "Installing Smartgit ..."
+  sudo apt-get install -y
+
 fancy_echo "Installing curl ..."
   sudo apt-get install -y curl
 
@@ -30,6 +36,9 @@ fancy_echo "Installing VirtualBox ..."
 
 fancy_echo "Installing Vagrant ..."
   sudo apt-get install -y 
+  
+fancy_echo "Updating installed system packages ..."
+  sudo apt-get update
 
 fancy_echo "Cleaning Installation ..."
   sudo apt-get autoclean
