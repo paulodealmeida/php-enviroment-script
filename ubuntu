@@ -10,8 +10,8 @@ fancy_echo "Updating system packages ..."
 fancy_echo "Installing git, for source control management ..."
   sudo apt-get install -y git
 
-#fancy_echo "Installing libraries for common dependencies ..."
-#  sudo apt-get install -y 
+fancy_echo "Installing curl ..."
+  sudo apt-get install -y curl
 
 fancy_echo "Installing OpenJDK ..."
   sudo apt-get install -y openjdk-7-jdk openjdk-7-jre
@@ -22,20 +22,18 @@ fancy_echo "Installing Netbeans ..."
   sudo bash /tmp/netbeans-8.0.2-php-linux.sh --silent
   sudo rm -rf /tmp/*
 
+fancy_echo "Installing Apache, Php, MySQL and required packages installation ..."
+  sudo apt-get -y install apache2 php5 libapache2-mod-php5 php5-mcrypt php5-curl php5-mysql php5-gd php5-cli php5-dev mysql-client
+php5enmod mcrypt
+
 fancy_echo "Installing Workbench ..."
-  sudo apt-get install -y
+#TODO precisa testar
+  sudo apt-get install -y mysql-workbench-community
+  sudo apt-get install -y libmysqlclient18
 
 fancy_echo "Installing Smartgit ..."
   sudo apt-get install -y
-
-fancy_echo "Installing curl ..."
-  sudo apt-get install -y curl
-
-fancy_echo "Installing VirtualBox ..."
-  sudo apt-get install -y
-
-fancy_echo "Installing Vagrant ..."
-  sudo apt-get install -y 
+  #TODO clonar repositorios vindo de um arquivo de configuração
   
 fancy_echo "Updating installed system packages ..."
   sudo apt-get update
