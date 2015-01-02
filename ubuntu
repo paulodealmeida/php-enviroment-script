@@ -1,7 +1,7 @@
 #!/bin/bash
 
 fancy_echo() {
-  printf "\n%b\n" "$1"
+  printf "\n%b\n" "$1" "\n%b\n"
 }
 
 fancy_echo "Updating system packages ..."
@@ -16,25 +16,27 @@ fancy_echo "Installing curl ..."
 fancy_echo "Installing OpenJDK ..."
   sudo apt-get install -y openjdk-7-jdk openjdk-7-jre
 
-fancy_echo "Installing Netbeans ..."
+fancy_echo "Downloading Netbeans ..."
   wget http://dlc-cdn.sun.com/netbeans/8.0.2/final/bundles/netbeans-8.0.2-php-linux.sh -O /tmp/netbeans-8.0.2-php-linux.sh
   sudo chmod +x /tmp/netbeans-8.0.2-php-linux.sh
+fancy_echo "Installing Netbeans ..."
   sudo bash /tmp/netbeans-8.0.2-php-linux.sh --silent
   sudo rm -rf /tmp/*
+  # TODO criar 
   #TODO verificar se é possivel fazer configurações
 
 fancy_echo "Installing Apache, Php, MySQL and required packages installation ..."
   sudo apt-get -y install apache2 php5 libapache2-mod-php5 php5-mcrypt php5-curl php5-mysql php5-gd php5-cli php5-dev mysql-client
 php5enmod mcrypt libmysqlclient18
   # Installing mysql server and setting root password
-  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password YOUR_PASSWORD'
-  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password YOUR_PASSWORD'
+  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password asdf'
+  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password asdf'
   sudo apt-get -y install mysql-server
 
 fancy_echo "Installing Composer globally ..."
   #TODO Verificar se funciona
   curl -sS https://getcomposer.org/installer | php
-  mv composer.phar /usr/local/bin/composer
+  sudo mv composer.phar /usr/local/bin/composer
 
 fancy_echo "Installing Workbench ..."
 #TODO precisa testar
@@ -47,6 +49,12 @@ fancy_echo "Cloning Repositories ..."
   git clone NAME_OF_REPO
 
 fancy_echo "Configuring VHOSTs ..."
+  # TODO criar arquivos cdos vhosts e armazenar no 
+
+  # After modifying the virtual hosts files, disable the default virtual host (000.default.conf), and enable new virtual hosts
+  # sudo a2dissite 000-default.conf
+  # sudo a2ensite unixmen1.local.conf
+  # sudo a2ensite unixmen2.local.conf
 
 
 fancy_echo "Restarting Apache ..."
