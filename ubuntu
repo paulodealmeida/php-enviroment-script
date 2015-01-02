@@ -21,20 +21,37 @@ fancy_echo "Installing Netbeans ..."
   sudo chmod +x /tmp/netbeans-8.0.2-php-linux.sh
   sudo bash /tmp/netbeans-8.0.2-php-linux.sh --silent
   sudo rm -rf /tmp/*
+  #TODO verificar se é possivel fazer configurações
 
 fancy_echo "Installing Apache, Php, MySQL and required packages installation ..."
   sudo apt-get -y install apache2 php5 libapache2-mod-php5 php5-mcrypt php5-curl php5-mysql php5-gd php5-cli php5-dev mysql-client
-php5enmod mcrypt
+php5enmod mcrypt libmysqlclient18
+  # Installing mysql server and setting root password
+  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password YOUR_PASSWORD'
+  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password YOUR_PASSWORD'
+  sudo apt-get -y install mysql-server
+
+fancy_echo "Installing Composer globally ..."
+  #TODO Verificar se funciona
+  curl -sS https://getcomposer.org/installer | php
+  mv composer.phar /usr/local/bin/composer
 
 fancy_echo "Installing Workbench ..."
 #TODO precisa testar
   sudo apt-get install -y mysql-workbench-community
-  sudo apt-get install -y libmysqlclient18
 
 fancy_echo "Installing Smartgit ..."
   sudo apt-get install -y
-  #TODO clonar repositorios vindo de um arquivo de configuração
-  
+
+fancy_echo "Cloning Repositories ..."
+  git clone NAME_OF_REPO
+
+fancy_echo "Configuring VHOSTs ..."
+
+
+fancy_echo "Restarting Apache ..."
+  sudo service apache2 restart
+
 fancy_echo "Updating installed system packages ..."
   sudo apt-get update
 
