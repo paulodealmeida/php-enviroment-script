@@ -6,7 +6,6 @@
 ##                                                   ##
 ##              Author Paulo de Almeida              ##
 ##              paulodealmeida@gmail.com             ##
-##             Update: 01/11/2016 14:56              ##
 #######################################################
 #######################################################
 
@@ -94,6 +93,10 @@ fancy_echo "Instalando API Doc ..."
   sudo apt-get install -y nodejs-legacy
   sudo apt-get install -y npm
   sudo npm install apidoc -g
+  
+fancy_echo "Habilitando o mod_rewrite ..."
+  sudo a2enmod rewrite
+  sudo service apache2 restart
 
 fancy_echo "Atualizando sistema ..."
   sudo apt-get update
