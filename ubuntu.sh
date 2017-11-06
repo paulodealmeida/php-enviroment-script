@@ -37,14 +37,31 @@ fancy_echo "Atualizando sistema ..."
   sudo apt-get update
 
 fancy_echo "Instalando Sublime Text ..."
-  wget https://download.sublimetext.com/sublime-text_build-3126_amd64.deb -O /tmp/sublime.deb
-  sudo dpkg -i /tmp/sublime.deb
+  wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+  sudo apt-get install -y apt-transport-https
+  echo "deb https://download.sublimetext.com/ apt/dev/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+  sudo apt-get update
+  sudo apt-get install -y sublime-text
 
 fancy_echo "Instalando git ..."
   sudo apt-get install -y git
 
 fancy_echo "Instalando curl ..."
   sudo apt-get install -y curl
+
+fancy_echo "Instalando docker ..."
+  # Remove versões antigas
+  sudo apt-get remove docker docker-engine docker.io
+  # Instalação
+  sudo apt-get update
+  sudo apt-get install -y ca-certificates software-properties-common
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  sudo apt-get update
+  sudo apt-get install -y docker-ce
+
+fancy_echo "Instalando aplicativos comuns ..."
+  sudo apt-get install -y unrar unzip vim
 
 fancy_echo "Instalando Oracle JDK 8 ..."
   sudo apt-get install -y default-jre
@@ -85,9 +102,6 @@ fancy_echo "Instalando Rocketeer Latest ..."
   wget http://rocketeer.autopergamene.eu/versions/rocketeer.phar
   sudo chmod +x ./rocketeer.phar
   sudo mv ./rocketeer.phar /usr/local/bin/rocketeer
-
-fancy_echo "Instalando aplicativos comuns ..."
-  sudo apt-get install -y unrar unzip vim
 
 fancy_echo "Instalando API Doc ..."
   sudo apt-get install -y nodejs-legacy
